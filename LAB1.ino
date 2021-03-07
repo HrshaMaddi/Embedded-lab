@@ -9,12 +9,13 @@ const int digitPins[4] = {4,5,6,7};                //4 common anode pins of the 
 const int clockPin = 10;                           //74HC595 Pin 11 
 const int latchPin = 9;                            //74HC595 Pin 12
 const int dataPin = 8;                             //74HC595 Pin 14
-const int red =  3;                             // RED LED pin 3
+const int red =  3;                                // RED LED pin 3
 const int yellow =  2;                             // RED LED Pin 2
-const int green =  1;                             // RED LED Pin 1
-const int buzzer = 11;                            // Active Buzzer Pin 11
-const int startpin = 12;                          // Startpin(to start R G B loop) pin 12
-unsigned char digit[] =      //seven segment digits in bits (0 to F)
+const int green =  1;                              // RED LED Pin 1
+const int buzzer = 11;                             // Active Buzzer Pin 11
+const int startpin = 12;                           // Startpin(to start R G B loop) pin 12
+int buttonpin = 0;
+unsigned char digit[] =                            //seven segment digits in bits (0 to F)
 {
  0x3f,0x06,0x5b,0x4f,
  0x66,0x6d,0x7d,0x07,
@@ -138,20 +139,24 @@ for(int countdown=15; countdown >=0;countdown--)
     updateDisp(countdown);
   }digitalWrite(green, LOW);
   digitalWrite(buzzer, LOW);
+trafficlights();
 }
 
+//----------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------
+void button()
+{
+  buttonpin = digitalRead(startpin);
+  if(buttonpin)
+  {
+    digitalWrite(red, LOW);
+    trafficlights();
+  }
+}
 //-----------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------
 void loop()
 {  
-if(startpin)
-{
-  digitalWrite(red, LOW);
-  trafficlights();
-  }
-  else
-  {
-    digitalWrite(red, HIGH);
-    }
-    
+digitalWrite(red, HIGH);
+button();
 }
