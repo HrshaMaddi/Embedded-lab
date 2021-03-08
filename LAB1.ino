@@ -121,7 +121,14 @@ for(int countdown=15; countdown >=0;countdown--)
   }digitalWrite(red, LOW);
   digitalWrite(buzzer, LOW);
 
-
+for(int countdown=15; countdown >=0;countdown--)
+  {digitalWrite(green, HIGH);
+   if(countdown<=3)
+  {digitalWrite(buzzer, HIGH);}
+    updateDisp(countdown);
+  }digitalWrite(green, LOW);
+  digitalWrite(buzzer, LOW);
+  
 for(int countdown= 3; countdown >=0;countdown--)
   {digitalWrite(yellow, HIGH);
    if(countdown<=3)
@@ -132,13 +139,7 @@ for(int countdown= 3; countdown >=0;countdown--)
 
 
 
-for(int countdown=15; countdown >=0;countdown--)
-  {digitalWrite(green, HIGH);
-   if(countdown<=3)
-  {digitalWrite(buzzer, HIGH);}
-    updateDisp(countdown);
-  }digitalWrite(green, LOW);
-  digitalWrite(buzzer, LOW);
+
 trafficlights();
 }
 
