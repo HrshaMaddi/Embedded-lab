@@ -30,19 +30,26 @@ void loop(){
   GyX=Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-  
-  if(analogRead(X_pin) < 200)
+ /* Serial.println(AcX);
+  Serial.println(AcY);
+  Serial.println(AcZ);
+  Serial.println(GyX);
+  Serial.println(GyY);
+  Serial.println(GyZ);
+  Serial.println(" ");
+  delay(2000);   */
+  if(analogRead(X_pin) < 200  || AcX > 6000)
   { sendpythonnew = 'a';
   }
-  else if(analogRead(X_pin) > 800)
+  else if(analogRead(X_pin) > 800 || AcX < -6000)
   {
     sendpythonnew = 'd';
   }
- else if(analogRead(Y_pin) < 200)
+ else if(analogRead(Y_pin) < 200 || AcY  < -6000)
   {
     sendpythonnew = 'w';
   }
-  else if(analogRead(Y_pin) > 800)
+  else if(analogRead(Y_pin) > 800 || AcY > 6000 )
   {
     sendpythonnew = 's';
   }
