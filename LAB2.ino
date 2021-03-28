@@ -1,5 +1,5 @@
 #include<Wire.h>
- char buzzervalue, sendpythonnew='\0', sendpythonold='x';
+ char buzzervalue, sendbonus, sendpythonnew='\0', sendpythonold='x';
   const int buzzer = 5;
   const int SW_pin = 2;                                         // digital pin connected to switch output
   const int X_pin = 0;                                          // analog pin connected to X output
@@ -30,14 +30,20 @@ void loop(){
   GyX=Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
- /* Serial.println(AcX);
+  /* Serial.println(AcX);
   Serial.println(AcY);
   Serial.println(AcZ);
   Serial.println(GyX);
   Serial.println(GyY);
   Serial.println(GyZ);
-  Serial.println(" ");
-  delay(2000);   */
+  Serial.println(" "); 
+  delay(200); */ 
+  if(AcZ>25000)
+  {
+    sendbonus = 'z'; 
+    Serial.write(sendbonus);
+    delay(400);
+  }
   if(analogRead(X_pin) < 200  || AcX > 6000)
   { sendpythonnew = 'a';
   }
@@ -45,17 +51,18 @@ void loop(){
   {
     sendpythonnew = 'd';
   }
- else if(analogRead(Y_pin) < 200 || AcY  < -6000)
+ else if(analogRead(Y_pin) < 200 || AcY  < -5000)
   {
     sendpythonnew = 'w';
   }
-  else if(analogRead(Y_pin) > 800 || AcY > 6000 )
+  else if(analogRead(Y_pin) > 800 || AcY > 5000 )
   {
     sendpythonnew = 's';
   }
   if(sendpythonold != sendpythonnew)
   {
     Serial.write(sendpythonnew);
+    delay(400);
     sendpythonold=sendpythonnew;
   }
 

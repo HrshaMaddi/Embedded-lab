@@ -16,15 +16,17 @@ import serial
 # TODO uncomment the following two lines to initialize serial port
 ser = serial.Serial('COM3', 9600, timeout=0)
 delay = 0.1
-
+bonus = ''
 # Score
 score = 0
 high_score = 0
-ppa = 10
-
+if bonus == 'z':
+    ppa = 20
+else:
+    ppa = 10
 # Set up the screen
 wn = turtle.Screen()
-wn.title("Snake Game by Harsha Maddi")
+wn.title("Snake Game by SAM")
 wn.bgcolor("green")
 wn.setup(width=600, height=600)
 wn.tracer(0)  # Turns off the screen updates
@@ -120,6 +122,9 @@ while True:
         go_right()
     elif value == b's':
         go_down()
+    elif value == b'z':
+        food.color("cyan")
+        bonus = 'z'
 
     # Check for a collision with the border
     if head.xcor() > 290 or head.xcor() < -290 or head.ycor() > 290 or head.ycor() < -290:
@@ -149,7 +154,6 @@ while True:
 
         # Buzzer code
         line = ser.readline()
-        print(line)
         ser.write(b'x')
 
         # Move the food to a random spot
@@ -169,7 +173,12 @@ while True:
         delay -= 0.001
 
         # Increase the score
-        score += 10
+        if bonus == 'z':
+            score += 20
+        else:
+            score += 10
+        food.color("red")
+        bonus = 'x'
 
         if score > high_score:
             high_score = score
