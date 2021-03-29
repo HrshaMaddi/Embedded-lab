@@ -20,9 +20,6 @@ bonus = ''
 # Score
 score = 0
 high_score = 0
-if bonus == 'z':
-    ppa = 20
-else:
     ppa = 10
 # Set up the screen
 wn = turtle.Screen()
@@ -123,7 +120,7 @@ while True:
     elif value == b's':
         go_down()
     elif value == b'z':
-        food.color("cyan")
+        food.color("gold")
         bonus = 'z'
 
     # Check for a collision with the border
@@ -146,6 +143,10 @@ while True:
         delay = 0.1
 
         pen.clear()
+        if bonus == 'z':
+            ppa = 20
+        else:
+            ppa = 10
         pen.write("Score: {}  High Score: {}  P/A: {}".format(score, high_score, ppa), align="center",
                   font=("Courier", 24, "normal"))
 
@@ -184,6 +185,10 @@ while True:
             high_score = score
 
         pen.clear()
+        if bonus == 'z':
+            ppa = 20
+        else:
+            ppa = 10
         pen.write("Score: {}  High Score: {}  P/A: {}".format(score, high_score, ppa), align="center",
                   font=("Courier", 24, "normal"))
 
@@ -223,6 +228,10 @@ while True:
 
             # Update the score display
             pen.clear()
+            if bonus == 'z':
+                ppa = 20
+            else:
+                ppa = 10
             pen.write("Score: {}  High Score: {}  P/A: {}".format(score, high_score, ppa), align="center",
                       font=("Courier", 24, "normal"))
 
